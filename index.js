@@ -41,6 +41,10 @@ app.post('/webhook', (req, res) => {
   
   });
 
+  app.get('/', (req, res) => {
+    res.status(200).send('OK');
+  });
+
   // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
 
