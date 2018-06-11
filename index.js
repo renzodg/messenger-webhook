@@ -2,18 +2,12 @@
 
 // Imports dependencies and set up http server
 const
-fs = require('fs'),
-https = require('https'),
 express = require('express'),
 bodyParser = require('body-parser'),
 app = express().use(bodyParser.json()); // creates express http server
 
-var privateKey = fs.readFileSync( 'key.pem' );
-var certificate = fs.readFileSync( 'cert.pem' );
-
-
-
-
+// Sets server port and logs message on success
+app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
@@ -39,10 +33,6 @@ app.post('/webhook', (req, res) => {
       res.sendStatus(404);
     }
   
-  });
-
-  app.get('/', (req, res) => {
-    res.status(200).send('OK');
   });
 
   // Adds support for GET requests to our webhook
@@ -72,12 +62,3 @@ app.get('/webhook', (req, res) => {
       }
     }
   });
-
-  // Sets server port and logs message on success
-https.createServer({
-  key: privateKey,
-  cert: certificate,
-  passphrase: 'renzo'
-}, app).listen(process.env.PORT || 1337, ()=>{
-  console.log('asasas')
-});
